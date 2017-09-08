@@ -25,7 +25,7 @@ import itertools
 
 from .utils import AutoOrderedDict
 from .utils.date import num2date
-from .utils.py3 import range
+from .utils.py3 import range, iteritems
 
 
 class TradeHistory(AutoOrderedDict):
@@ -183,6 +183,15 @@ class Trade(object):
         self.history = list()
 
         self.status = self.Created
+        self.info = AutoOrderedDict()
+
+    def addinfo(self, **kwargs):
+        '''Add the keys, values of kwargs to the internal info dictionary to
+        hold custom information in the order
+        '''
+        for key, val in iteritems(kwargs):
+            self.info[key] = val
+
 
     def __len__(self):
         '''Absolute size of the trade'''
